@@ -1,0 +1,127 @@
+<robot name="test_arm" xmlns:xacro="httpL://www.ros.org/wiki/xacro">
+
+   <!-- Define variables -->
+   <xacro:property name="PI" value="3.14159265"/>
+
+   <link name="wrist_link">
+      <visual>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.125" radius="0.05" />
+         </geometry>
+      </visual>
+      <collision>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.125" radius = "0.05"/>
+         </geometry>
+      </collision>
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="0.032"/>
+         <inertia
+            ixx="78745.29" ixy="0.0" ixz="0.0"
+            iyy="80873.96" iyz="0.0"
+            izz="8170.24"/>
+      </inertial>
+   </link>
+
+   <link name="elbow_link">
+      <visual>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.5" radius = "0.075"/>
+         </geometry>
+      </visual>
+      <collision>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.5" radius = "0.075"/>
+         </geometry>
+      </collision>
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="0.3"/>
+         <inertia
+            ixx="215.68" ixy="0.0" ixz="0.0"
+            iyy="15433.59" iyz="0.0"
+            izz="15406.67"/>
+      </inertial>      
+   </link>
+
+   <link name="shoulder_link">
+      <visual>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.549" radius = "0.075"/>
+         </geometry>
+      </visual>
+
+      <collision>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.549" radius = "0.075"/>
+         </geometry>
+      </collision>
+
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="2.438816"/>
+         <inertia
+            ixx="65156.39" ixy="0.0" ixz="0.0"
+            iyy="1389.45" iyz="0.0"
+            izz="15406.67"/>
+      </inertial>
+   </link>
+
+   <link name="base_link">
+      <visual>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.05" radius = "0.1"/>
+         </geometry>
+      </visual>
+
+      <collision>
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length = "0.05" radius = "0.1"/>
+         </geometry>
+      </collision>
+
+      <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+      </inertial>
+   </link>
+
+   <!-- Joints -->
+
+
+   <joint name="armToEnd" type="revolute">
+      <parent link="elbow_link" />
+      <child link="wrist_link" />
+      <origin xyz="0 0 0.5" rpy="0 0 0"/>
+      <axis xyz = "0 0 1"/>
+      <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+   </joint>
+
+   <joint name="topToBot" type="revolute">
+      <parent link="shoulder_link" />
+      <child link="elbow_link" />
+      <origin xyz="0 0 0.549" rpy="0 0 0"/>
+      <axis xyz = "0 0 1"/>
+     <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+   </joint>
+   <joint name="botToBase" type="revolute">
+      <parent link="base_link" />
+      <child link="shoulder_link" />
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <axis xyz = "1 0 0"/>
+      <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+   </joint>
+</robot>
