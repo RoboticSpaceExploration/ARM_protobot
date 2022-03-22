@@ -14,6 +14,14 @@ Source code for testArm. This directory is currently using ROS 1 (Noetic) tentat
      - ```mkdir urdf ```
      - ```cd urdf```
      - ```vi custom_arm.urdf.```  Paste in urdf
+2. Also ensure that you have the following(Install with ```sudo apt-get install```): 
+     - libpcl-dev
+     - libeigen3-dev
+     - ros-melodic-costmap2d
+     - ros-melodic-ddynamic-reconfigure
+     - ros-melodic-move-base
+     - ros-melodic-rtabmap-ros
+     - ros-melodic-rtcm-msgs
 
 3.Create launch and controls files using moveit setup assistant ```roslaunch moveit_setup_assistant setup_assistant.launch```:
      -create config and find urdf
