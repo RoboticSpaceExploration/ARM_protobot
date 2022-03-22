@@ -37,7 +37,7 @@ Source code for testArm. This directory is currently using ROS 1 (Noetic) tentat
      - configure file
    
 # Launch 
-1. Source project at root directory using ```. devel/setup.sh``` when first opening the shell. If you don't want to do this everytime, refer to #4
+1. Source project at root directory using ```. devel/setup.sh``` when first opening the shell.
 2. To launch, ```roslaunch arm_moveit_config demo.launch```
 3. To launch, ```roslaunch arm_moveit_config gazebo.launch```
 
