@@ -6,16 +6,16 @@ Source code for testArm. This directory is currently using ROS 1 (Noetic) tentat
      - ros-noetic-ros-controllers
 
 # Setup 
-1.Create catkin workspace using steps from http://wiki.ros.org/catkin/Tutorials/create_a_workspace
+1.Create catkin workspace using steps from http://wiki.ros.org/catkin/Tutorials/create_a_workspace :
      - ```cd catkin ws```
      - ```cd src```
-2.create and setup package ```catkin_create_pkg arm_description``` 
+2.create and setup package ```catkin_create_pkg arm_description``` :
      - ```cd arm_description```
      - ```mkdir urdf ```
      - ```cd urdf```
      - ```vi custom_arm.urdf.```  Paste in urdf
 
-3.Create launch and controls files using moveit setup assistant ```roslaunch moveit_setup_assistant setup_assistant.launch```
+3.Create launch and controls files using moveit setup assistant ```roslaunch moveit_setup_assistant setup_assistant.launch```:
      -create config and find urdf
      -set to highest sampling density -> generate collision matrix
      -add a virtual fixed joint with parent frame to world (child_link=base_link)
