@@ -15,7 +15,7 @@ Source code for testArm. This directory is currently using ROS 1 (Noetic) tentat
      - ```mkdir urdf ```
      - ```cd urdf```
      - ```vi custom_arm.urdf.```  Paste in urdf
-     - 
+    
 3. Create launch and controls files using moveit setup assistant ```roslaunch moveit_setup_assistant setup_assistant.launch```:
      - create config and find urdf
      - set to highest sampling density -> generate collision matrix 
