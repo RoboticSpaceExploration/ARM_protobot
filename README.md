@@ -4,7 +4,9 @@ Source code for testArm. This directory is currently using ROS 1 (Noetic) tentat
      - ros-noetic-moveit
      - ros-noetic-ros-control 
      - ros-noetic-ros-controllers
-     
+     - ros-noetic-gazebo-ros-pkgs
+     - ros-noetic-gazebo-ros-control    
+      
 # Setup 
 1. Create catkin workspace using steps from http://wiki.ros.org/catkin/Tutorials/create_a_workspace :
      - ```cd catkin ws```
