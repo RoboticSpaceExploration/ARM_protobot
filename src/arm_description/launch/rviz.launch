@@ -6,11 +6,12 @@
 
   <!-- load model into parameter server -->
 
-    <param name="arm_description" command="$(find xacro)/xacro '$(find arm_description)/urdf/custom_arm.urdf'"/>
+    <param name="robot_description" command="$(find xacro)/xacro '$(find arm_description)/urdf/custom_arm.urdf'"/>
+ <!--Combine joint values-->
 
-    <!--node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
     
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find arm_description)/launch/config.rviz" />
 
 </launch>
