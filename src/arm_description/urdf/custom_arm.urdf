@@ -1,8 +1,9 @@
+<?xml version="1.0"?>
+
 <robot name="test_arm" xmlns:xacro="httpL://www.ros.org/wiki/xacro">
 
     <!-- Define variables -->
     <xacro:property name="PI" value="3.14159265" />
-    
     <!-- End Effector -->
     <link name="base_endeffector">
         <visual>
@@ -18,13 +19,13 @@
             </geometry>
         </collision>
         
-	<inertial>
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.032" />
             <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
         </inertial>
+
     </link>
-    
     <link name="left_finger">
         <visual>
             <origin xyz="0 0 0.025 " rpy="0 0 0" />
@@ -39,13 +40,13 @@
             </geometry>
         </collision>
         
-	<inertial>
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.002" />
             <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
         </inertial>
+
     </link>
-    
     <link name="right_finger">
         <visual>
             <origin xyz="0 0 0.025" rpy="0 0 0" />
@@ -60,13 +61,13 @@
             </geometry>
         </collision>
         
-	<inertial>
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.032" />
             <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
         </inertial>
+
     </link>
-    
     <!-- End effector joints -->
     <joint name="left_joint" type="prismatic">
         <parent link="base_endeffector" />
@@ -75,19 +76,6 @@
         <axis xyz="1 0 0" />
         <limit effort="100" lower="-0.035" upper="0.0" velocity="5" />
     </joint>
- 
-    <!--Left Joint Gazebo Plugin-->
-    <transmission name="trans_left_joint">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="left_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_left_joint">
-        <hardwareInterface>hardware_interfaceEffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>   
-     
     <joint name="right_joint" type="prismatic">
         <parent link="base_endeffector" />
         <child link="right_finger" />
@@ -95,40 +83,7 @@
         <axis xyz="1 0 0" />
         <limit effort="100" lower="0.0" upper="0.035" velocity="5" />
     </joint>
-    
-     <!--Right Joint Gazebo Plugin-->
-    <transmission name="trans_right_joint">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="right_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_right_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>  
-    
     <!--Arm Links-->
-    
-    <joint name="endeffector" type="continuous">
-        <parent link="wrist_link" />
-        <child link="base_endeffector" />
-        <origin xyz="0 0 0.125" rpy="0 0 0" />
-        <axis xyz="0 0 1" />
-    </joint>
-    
-    <!--endeffector Gazebo Plugin-->    
-    <transmission name="trans_endeffector">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="endeffector">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_endeffector">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>  
-        
     <link name="wrist_link">
         <visual>
             <origin xyz="0 0 .0625" rpy="0 0 0" />
@@ -142,32 +97,14 @@
                 <cylinder length="0.125" radius="0.05" />
             </geometry>
         </collision>
-       
-        <inertial>
+        
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.032" />
             <inertia ixx="0.07874529" ixy="0.0" ixz="0.0" iyy="0.08087396" iyz="0.0" izz="0.00817024" />
         </inertial>
-    </link>
 
-    <joint name="armToEnd" type="revolute">
-        <parent link="elbow_link" />
-        <child link="wrist_link" />
-        <origin xyz="0 0 0.5" rpy="0 0 0" />
-        <axis xyz="1 0 0" />
-        <limit effort="1000.0" lower="0.0" upper="2.167" velocity="0.5" />
-    </joint>
-    <transmission name="trans_armToEnd">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="armToEnd">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_armToEnd">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>      
-    
+    </link>
     <link name="elbow_link">
         <visual>
             <origin xyz="0 0 0.25" rpy="0 0 0" />
@@ -182,32 +119,13 @@
             </geometry>
         </collision>
         
-        <inertial>
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.3" />
             <inertia ixx="0.00021568" ixy="0.0" ixz="0.0" iyy="0.01543359" iyz="0.0" izz="0.01540667" />
         </inertial>
 
     </link>
-
-    <joint name="topToBot" type="revolute">
-        <parent link="shoulder_link" />
-        <child link="elbow_link" />
-        <origin xyz="0 0 .549" rpy="0 0 0" />
-        <axis xyz="1 0 0" />
-        <limit effort="1000.0" lower="0.0" upper="2.617" velocity="0.5" />
-    </joint>
-    <transmission name="trans_topToBot">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="topToBot">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_topToBot">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>   
-      
     <link name="shoulder_link">
         <visual>
             <origin xyz="0 0 0.2775" rpy="0 0 0" />
@@ -222,32 +140,13 @@
             </geometry>
         </collision>
         
-        <inertial>
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="2.438816" />
             <inertia ixx="0.06515639" ixy="0.0" ixz="0.0" iyy="0.00138945" iyz="0.0" izz="0.01540667" />
         </inertial>
 
     </link>
-
-    <joint name="shoulderTolittle" type="revolute">
-        <parent link="little_link" />
-        <child link="shoulder_link" />
-        <origin xyz="0 0 .05" rpy="0 0 0" />
-        <axis xyz="1 0 0" />
-        <limit effort="1000.0" lower="0.0" upper="1.5707" velocity="0.5" />
-    </joint>
-    <transmission name="trans_shoulderTolittle">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="shoulderTolittle">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_shoulderTolittle">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>      
-     
     <link name="little_link">
         <visual>
             <origin xyz="0 0 0.025" rpy="0 0 0" />
@@ -262,31 +161,13 @@
             </geometry>
         </collision>
         
-        <inertial>
+<inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.032" />
             <inertia ixx="0.07874529" ixy="0.0" ixz="0.0" iyy="0.08087396" iyz="0.0" izz="0.00817024" />
         </inertial>
 
     </link>
-    
-    <joint name="botToBase" type="continuous">
-        <parent link="base_link" />
-        <child link="little_link" />
-        <origin xyz="0 0 0.025" rpy="0 0 0" />
-        <axis xyz="0 0 1" />
-    </joint>
-    <transmission name="trans_botToBase">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="botToBase">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_botToBase">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>   
-        
     <link name="base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -300,12 +181,124 @@
                 <cylinder length="0.05" radius="0.1" />
             </geometry>
         </collision>
+        
+<inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial>
+
     </link>
+    <!-- Joints -->
+    <joint name="endeffector" type="continuous">
+        <parent link="wrist_link" />
+        <child link="base_endeffector" />
+        <origin xyz="0 0 0.125" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="armToEnd" type="revolute">
+        <parent link="elbow_link" />
+        <child link="wrist_link" />
+        <origin xyz="0 0 0.5" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="1000.0" lower="0.0" upper="2.167" velocity="0.5" />
+    </joint>
+    <joint name="topToBot" type="revolute">
+        <parent link="shoulder_link" />
+        <child link="elbow_link" />
+        <origin xyz="0 0 .549" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="1000.0" lower="0.0" upper="2.617" velocity="0.5" />
+    </joint>
+    <joint name="shoulderTolittle" type="revolute">
+        <parent link="little_link" />
+        <child link="shoulder_link" />
+        <origin xyz="0 0 .05" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="1000.0" lower="0.0" upper="1.5707" velocity="0.5" />
+    </joint>
+    <joint name="botToBase" type="continuous">
+        <parent link="base_link" />
+        <child link="little_link" />
+        <origin xyz="0 0 0.025" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+    </joint>
     
+ <!-- gazebo/controller plugin -->   
+<transmission name="trans_left_finger">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="left_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="left_finger_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_right_finger">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="right_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="right_finger_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_endeffector">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="endeffector">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="endeffector_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_armToEnd">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="armToEnd">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="armToEnd_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_topToBot">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="topToBot">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="topToBot_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_shoulderTolittle">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="shoulderTolittle">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="shoulderTolittle_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_botToBase">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="botToBase">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="botToBase_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>/arm</robotNamespace>
+            <robotNamespace>/</robotNamespace>
         </plugin>
     </gazebo>
-  
+
 </robot>

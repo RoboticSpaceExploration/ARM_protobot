@@ -15,14 +15,12 @@
     	 <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
           	 args="-urdf -param robot_description -model test_arm -x $(arg x) -y $(arg y) -z $(arg z)"/>
           	 
-         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-        <!--rosparam command="load" file="$(find arm_description)/config/joints.yaml"-->
+        <!-- rosparam command="load" file="$(find arm_description)/config/joints.yaml"/ -->
  
 	<!-- Controllers -->
-   	 <!--node name="controller_spawner" pkg="controller_manager" type="spawner"
-        	 respawn="false" output="screen" ns="/test_arm"
+   	 <!-- node name="controller_spawner" pkg="controller_manager" type="spawner"
+        	 respawn="false" output="screen" ns="/arm"
         	 args="joint_state_controller
         	 joint1_position_controller
         	 joint2_position_controller
@@ -30,6 +28,6 @@
         	 joint4_position_controller
         	 joint5_position_controller
         	 joint6_position_controller
-        	 joint7_position_controller"-->
+        	 joint7_position_controller" -->
 
 </launch>
