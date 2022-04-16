@@ -10,24 +10,10 @@
     <!-- coordinates to spawn model -->
     	 <arg name="x" default="0"/>
     	 <arg name="y" default="0"/>
-    	 <arg name="z" default="0.5"/>
+    	 <arg name="z" default="0.025"/>
 
     	 <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
           	 args="-urdf -param robot_description -model test_arm -x $(arg x) -y $(arg y) -z $(arg z)"/>
-          	 
-
-        <!-- rosparam command="load" file="$(find arm_description)/config/joints.yaml"/ -->
- 
-	<!-- Controllers -->
-   	 <!-- node name="controller_spawner" pkg="controller_manager" type="spawner"
-        	 respawn="false" output="screen" ns="/arm"
-        	 args="joint_state_controller
-        	 joint1_position_controller
-        	 joint2_position_controller
-        	 joint3_position_controller
-        	 joint4_position_controller
-        	 joint5_position_controller
-        	 joint6_position_controller
-        	 joint7_position_controller" -->
+      <include file="$(find arm_control)/launch/arm_control.launch"/>
 
 </launch>
