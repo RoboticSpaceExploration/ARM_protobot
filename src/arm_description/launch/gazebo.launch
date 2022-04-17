@@ -2,7 +2,7 @@
 <launch>
 
   <!-- load model into parameter server -->
-    
+ 
     <param name="robot_description" command="$(find xacro)/xacro '$(find arm_description)/urdf/custom_arm.urdf'"/>
     
     	 <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
@@ -10,10 +10,11 @@
     <!-- coordinates to spawn model -->
     	 <arg name="x" default="0"/>
     	 <arg name="y" default="0"/>
-    	 <arg name="z" default="0.025"/>
+    	 <arg name="z" default="3"/>
 
     	 <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
           	 args="-urdf -param robot_description -model test_arm -x $(arg x) -y $(arg y) -z $(arg z)"/>
-      <include file="$(find arm_control)/launch/arm_control.launch"/>
+
+      <!-- include file="$(find arm_control)/launch/arm_control.launch"/ -->
 
 </launch>
