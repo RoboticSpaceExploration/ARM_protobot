@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
+
 <launch>
+
+<include file="$(find arm_control)/launch/arm_control.launch"/>
+
 
   <!-- load model into parameter server -->
  
@@ -10,11 +14,9 @@
     <!-- coordinates to spawn model -->
     	 <arg name="x" default="0"/>
     	 <arg name="y" default="0"/>
-    	 <arg name="z" default="3"/>
+    	 <arg name="z" default="0.1"/>
 
     	 <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
           	 args="-urdf -param robot_description -model test_arm -x $(arg x) -y $(arg y) -z $(arg z)"/>
-
-      <!-- include file="$(find arm_control)/launch/arm_control.launch"/ -->
 
 </launch>
