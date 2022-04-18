@@ -12,6 +12,7 @@ find_package(catkin REQUIRED
 	controller_manager
 	joint_state_controller
 	robot_state_publisher
+    gazebo_ros
 )
 
 ## System dependencies are found with CMake's conventions

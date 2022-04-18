@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 
+  <include file="$(find arm_control)/launch/arm_control.launch"/>
+  <include file="$(find arm_description)/launch/gazebo_headless.launch"/> <!-- launch gazebo w/o gui for the controller_manager interface --> 
+
   <arg name="model" default="$(find arm_description)/urdf/custom_arm.urdf"/>
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz"/>
@@ -9,10 +12,11 @@
 
     <param name="robot_description" command="$(find xacro)/xacro '$(find arm_description)/urdf/custom_arm.urdf'"/>
 
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-    
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <remap from="/joint_states" to="/arm/joint_states"/> <!-- publish joint states in rviz -->
+    </node>
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
-  
+
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find arm_description)/launch/config.rviz" />
 
 </launch>

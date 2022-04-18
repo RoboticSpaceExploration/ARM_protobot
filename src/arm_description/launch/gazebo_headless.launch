@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
 
 <launch>
-
-<include file="$(find arm_control)/launch/arm_control.launch"/>
-
-
   <!-- load model into parameter server -->
  
     <param name="robot_description" command="$(find xacro)/xacro '$(find arm_description)/urdf/custom_arm.urdf'"/>
     
-    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+    	 <include file="$(find gazebo_ros)/launch/empty_world.launch">
+          <arg name="gui" value="false"/>
+       </include>
     
     <!-- coordinates to spawn model -->
     	 <arg name="x" default="0"/>
