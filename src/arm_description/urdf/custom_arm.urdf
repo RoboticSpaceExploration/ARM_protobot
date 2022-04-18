@@ -2,8 +2,24 @@
 
 <robot name="test_arm" xmlns:xacro="httpL://www.ros.org/wiki/xacro">
 
+    <!-- Define Macros -->
+
+    <xacro:macro name="box_inertia" params="m x y z">
+      <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
+                iyy="${m*(x*x+z*z)/12}" iyz = "0"
+                izz="${m*(x*x+z*z)/12}"/> 
+    </xacro:macro>
+
+    <xacro:macro name="cylinder_inertia" params="m r h">
+      <inertia    ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+                  iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+                  izz="${m*r*r/2}"/> 
+    </xacro:macro>
+
     <!-- Define variables -->
     <xacro:property name="PI" value="3.14159265" />
+    <xacro:property name="vel" value="5"/>
+
     <!-- End Effector -->
     <link name="base_endeffector">
         <visual>
@@ -17,15 +33,14 @@
             <geometry>
                 <box size="0.14 0.104 0.025" />
             </geometry>
-        </collision>
-        
-<inertial>
+        </collision>    
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.032" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+            <mass value="0.5" />
+            <xacro:box_inertia m="0.5" x="0.14" y="0.104" z="0.025"/>
         </inertial>
-
     </link>
+
     <link name="left_finger">
         <visual>
             <origin xyz="0 0 0.025 " rpy="0 0 0" />
@@ -39,14 +54,13 @@
                 <box size="0.03 0.1 0.05" />
             </geometry>
         </collision>
-        
-<inertial>
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.002" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+            <mass value="0.5" />
+            <xacro:box_inertia m="0.5" x="0.03" y="0.1" z="0.05"/>
         </inertial>
-
     </link>
+
     <link name="right_finger">
         <visual>
             <origin xyz="0 0 0.025" rpy="0 0 0" />
@@ -60,29 +74,29 @@
                 <box size="0.03 0.1 0.05" />
             </geometry>
         </collision>
-        
-<inertial>
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.032" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+            <mass value="0.5" />
+            <xacro:box_inertia m="0.5" x="0.03" y="0.1" z="0.05"/>
         </inertial>
-
     </link>
+
     <!-- End effector joints -->
     <joint name="left_joint" type="prismatic">
         <parent link="base_endeffector" />
         <child link="left_finger" />
         <origin xyz="0.05 0 0.025" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <limit effort="100" lower="-0.035" upper="0.0" velocity="5" />
+        <limit effort="100" lower="-0.035" upper="0.0" velocity="${vel}" />
     </joint>
     <joint name="right_joint" type="prismatic">
         <parent link="base_endeffector" />
         <child link="right_finger" />
         <origin xyz="-0.05 0 0.025" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <limit effort="100" lower="0.0" upper="0.035" velocity="5" />
+        <limit effort="100" lower="0.0" upper="0.035" velocity="${vel}" />
     </joint>
+
     <!--Arm Links-->
     <link name="wrist_link">
         <visual>
@@ -97,14 +111,14 @@
                 <cylinder length="0.125" radius="0.05" />
             </geometry>
         </collision>
-        
-<inertial>
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.032" />
-            <inertia ixx="0.07874529" ixy="0.0" ixz="0.0" iyy="0.08087396" iyz="0.0" izz="0.00817024" />
+            <mass value="1" />
+            <!--inertia ixx="0.07874529" ixy="0.0" ixz="0.0" iyy="0.08087396" iyz="0.0" izz="0.00817024" /-->
+            <xacro:cylinder_inertia m="1" r="0.05" h="0.125"/>
         </inertial>
-
     </link>
+
     <link name="elbow_link">
         <visual>
             <origin xyz="0 0 0.25" rpy="0 0 0" />
@@ -118,14 +132,14 @@
                 <cylinder length="0.5" radius="0.075" />
             </geometry>
         </collision>
-        
-<inertial>
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.3" />
-            <inertia ixx="0.00021568" ixy="0.0" ixz="0.0" iyy="0.01543359" iyz="0.0" izz="0.01540667" />
+            <mass value="1" />
+            <!--inertia ixx="0.00021568" ixy="0.0" ixz="0.0" iyy="0.01543359" iyz="0.0" izz="0.01540667" /-->
+            <xacro:cylinder_inertia m="1" r="0.075" h="0.5"/>
         </inertial>
-
     </link>
+
     <link name="shoulder_link">
         <visual>
             <origin xyz="0 0 0.2775" rpy="0 0 0" />
@@ -139,14 +153,14 @@
                 <cylinder length="0.549" radius="0.075" />
             </geometry>
         </collision>
-        
-<inertial>
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="2.438816" />
-            <inertia ixx="0.06515639" ixy="0.0" ixz="0.0" iyy="0.00138945" iyz="0.0" izz="0.01540667" />
+            <mass value="2.5" />
+            <!--inertia ixx="0.06515639" ixy="0.0" ixz="0.0" iyy="0.00138945" iyz="0.0" izz="0.01540667" /-->
+            <xacro:cylinder_inertia m="2.5" r="0.075" h="0.549"/>
         </inertial>
-
     </link>
+
     <link name="little_link">
         <visual>
             <origin xyz="0 0 0.025" rpy="0 0 0" />
@@ -159,15 +173,15 @@
             <geometry>
                 <box size="0.05 0.05 0.05" />
             </geometry>
-        </collision>
-        
-<inertial>
+        </collision> 
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.032" />
-            <inertia ixx="0.07874529" ixy="0.0" ixz="0.0" iyy="0.08087396" iyz="0.0" izz="0.00817024" />
+            <mass value="5" />
+            <!--inertia ixx="0.07874529" ixy="0.0" ixz="0.0" iyy="0.08087396" iyz="0.0" izz="0.00817024" /-->
+            <xacro:box_inertia m="5" x="0.05" y="0.05" z="0.05"/>
         </inertial>
-
     </link>
+    
     <link name="base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -181,13 +195,12 @@
                 <cylinder length="0.05" radius="0.1" />
             </geometry>
         </collision>
-        
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+            <mass value="2" />
+            <!--inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" /-->
+            <xacro:cylinder_inertia m="2" r="0.1" h="0.05"/>
         </inertial>
-
     </link>
 
     <link name="world"/>
