@@ -29,11 +29,11 @@ def joint1():
     pub = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
     rospy.init_node('leftFinger', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 
 #Right Finger Joint2 
@@ -41,11 +41,11 @@ def joint2():
     pub = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
     rospy.init_node('rightFinger', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 
 #End Actuator Spin Joint3
@@ -53,33 +53,33 @@ def joint3():
     pub = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
     rospy.init_node('endSpin', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 #End Actuator Up and Down Joint4
 def joint4():
     pub = rospy.Publisher('/arm/joint4_position_controller/command', Float64, queue_size=10)
     rospy.init_node('endUD', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 #Middle of Arm Up and Down Joint5
 def joint5():
     pub = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
     rospy.init_node('midUD', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 
 #Bottom of Arm Up and Down Joint6
@@ -87,11 +87,11 @@ def joint6():
     pub = rospy.Publisher('/arm/joint6_position_controller/command', Float64, queue_size=10)
     rospy.init_node('botUD', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 
 #Bottom of Arm Spin Joint7
@@ -99,31 +99,45 @@ def joint7():
     pub = rospy.Publisher('/arm/joint7_position_controller/command', Float64, queue_size=10)
     rospy.init_node('botSpin', anonymous=True)
     rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        position = 0.5 
-        rospy.loginfo(position)
-        pub.publish(position)
-        rate.sleep()
+    #while not rospy.is_shutdown():
+    position = 0.5 
+    rospy.loginfo(position)
+    pub.publish(position)
+    rate.sleep()
 
 
 
 if __name__ == '__main__':
     if os.name != 'nt':
         settings = termios.tcgetattr(sys.stdin)
+    
+    status = 0
 
     try:
        while(1):
            key = getKey()
            if key == 'w' :
                joint3()
+               status = status + 1
            elif key == 'x' : 
                joint4()
+               status = status + 1
            elif key == 'd' : 
                joint5()
+               status = status + 1
            elif key == 'a' : 
                joint6()
+               status = status + 1
            elif key == 's' : 
                joint7()
+               status = status + 1
+           else:
+               if (key == '\x03'):
+                   break
+
+            #Prevent movement running forever. 
+               if status == 10 :
+                   status = 0
 
 #        joint1() #Left  Finger 
 #        joint2() #Right Finger
